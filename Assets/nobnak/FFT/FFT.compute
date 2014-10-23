@@ -1,0 +1,82 @@
+﻿#pragma kernel BitReversalX
+#pragma kernel BitReversalY
+#pragma kernel DitX
+#pragma kernel DitY
+#pragma kernel Scale
+
+#define NTHREADS 8
+
+
+
+static const float TWO_PI = 6.28318530718;
+
+uint N;
+uint Ns;
+uint _Ns2;
+float ScaleFact;
+
+StructuredBuffer<uint> BitReversal;
+Texture2D<float2> FftIn;
+RWTexture2D<float2> FftOut;
+
+
+
+[numthreads(NTHREADS,NTHREADS,1)]
+void BitReversalX(uint3 id : SV_DispatchThreadID) {
+	uint x = BitReversal[id.x];
+	FftOut[id.xy] = FftIn[uint2(x, id.y)];
+}
+[numthreads(NTHREADS,NTHREADS,1)]
+void BitReversalY(uint3 id : SV_DispatchThreadID) {
+	uint y = BitReversal[id.y];
+	FftOut[id.xy] = FftIn[uint2(id.x, y)];
+}
+
+[numthreads(NTHREADS,NTHREADS,1)]
+void DitX(uint3 id : SV_DispatchThreadID) {
+	uint base = Ns * (id.x / Ns);
+	uint k = id.x % Ns;
+	uint k2 = id.x % _Ns2;
+	#ifndef BACKWARD
+	float rad = - TWO_PI * k / Ns;
+	#else
+	float rad = TWO_PI * k / Ns;
+	#endif
+	
+	uint x0 = base + k2;
+	uint x1 = x0 + _Ns2;
+	
+	float2 f0 = FftIn[uint2(x0, id.y)];
+	float2 f1 = FftIn[uint2(x1, id.y)];
+	float2 t = float2(cos(rad), sin(rad));
+	
+	FftOut[id.xy] = float2(
+		f0.x + t.x * f1.x - t.y * f1.y,
+		f0.y + t.x * f1.y + t.y * f1.x);
+}
+[numthreads(NTHREADS,NTHREADS,1)]
+void DitY(uint3 id : SV_DispatchThreadID) {
+	uint base = Ns * (id.y / Ns);
+	uint k = id.y % Ns;
+	uint k2 = k % _Ns2;
+	#ifndef BACKWARD
+	float rad = - TWO_PI * k / Ns;
+	#else
+	float rad = TWO_PI * k / Ns;
+	#endif
+	
+	uint y0 = base + k2;
+	uint y1 = y0 + _Ns2;
+	
+	float2 f0 = FftIn[uint2(id.x, y0)];
+	float2 f1 = FftIn[uint2(id.x, y1)];
+	float2 t = float2(cos(rad), sin(rad));
+	
+	FftOut[id.xy] = float2(
+		f0.x + t.x * f1.x - t.y * f1.y,
+		f0.y + t.x * f1.y + t.y * f1.x);
+}
+[numthreads(NTHREADS,NTHREADS,1)]
+void Scale(uint3 id : SV_DispatchThreadID) {
+	FftOut[id.xy] = ScaleFact * FftIn[id.xy];
+}
