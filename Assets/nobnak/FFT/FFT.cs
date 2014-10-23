@@ -6,13 +6,17 @@ using System.Text;
 namespace nobnak.FFT {
 
 	public class FFT : MonoBehaviour {
+		public enum Direction { Forward = 0, Backward }
+
 		public const int NTHREADS_IN_GROUP = 8;
 
 		public const int KERNEL_BitReversalX = 0;
 		public const int KERNEL_BitReversalY = 1;
-		public const int KERNEL_DitX = 2;
-		public const int KERNEL_DitY = 3;
-		public const int KERNEL_SCALE = 4;
+		public const int KERNEL_DIT_X_FORWARD = 2;
+		public const int KERNEL_DIT_Y_FORWARD = 3;
+		public const int KERNEL_DIT_X_BACKWARD = 4;
+		public const int KERNEL_DIT_Y_BACKWARD = 5;
+		public const int KERNEL_SCALE = 6;
 
 		public const string SHADER_N = "N";
 		public const string SHADER_NS = "Ns";
@@ -58,14 +62,17 @@ namespace nobnak.FFT {
 			_bitReversals = BitReversal.Reverse(_bitSequences);
 			_bitReversalBuf = new ComputeBuffer(_bitReversals.Length, Marshal.SizeOf(_bitReversals[0]));
 			_bitReversalBuf.SetData(_bitReversals);
-			//_bitReversalBuf.SetData(_bitSequences);
 		}
 
 		void Start() {
 			Graphics.Blit(photo, _fftTexIn);
-
-			FftX();
-			FftY();
+			
+			FftX(Direction.Forward);
+			FftY(Direction.Forward);
+			Normalize();
+			
+			FftX(Direction.Backward);
+			FftY(Direction.Backward);
 			Normalize();
 		}
 		void OnGUI() {
@@ -75,7 +82,9 @@ namespace nobnak.FFT {
 
 		void Swap() { var tmp = _fftTexIn; _fftTexIn = _fftTexOut; _fftTexOut = tmp; }
 
-		void FftX() {
+		void FftX(Direction dir) {
+			var dit = (dir == Direction.Forward ? KERNEL_DIT_X_FORWARD : KERNEL_DIT_X_BACKWARD);
+
 			fft.SetTexture (KERNEL_BitReversalX, SHADER_FFT_IN, _fftTexIn);
 			fft.SetTexture (KERNEL_BitReversalX, SHADER_FFT_OUT, _fftTexOut);
 			fft.SetBuffer (KERNEL_BitReversalX, SHADER_BIT_REVERSAL, _bitReversalBuf);
@@ -86,13 +95,15 @@ namespace nobnak.FFT {
 			while ((ns <<= 1) <= _n) {
 				fft.SetInt (SHADER_NS, ns);
 				fft.SetInt (SHADER_NS2, ns / 2);
-				fft.SetTexture (KERNEL_DitX, SHADER_FFT_IN, _fftTexIn);
-				fft.SetTexture (KERNEL_DitX, SHADER_FFT_OUT, _fftTexOut);
-				fft.Dispatch (KERNEL_DitX, _nGroups, _nGroups, 1);
+				fft.SetTexture (dit, SHADER_FFT_IN, _fftTexIn);
+				fft.SetTexture (dit, SHADER_FFT_OUT, _fftTexOut);
+				fft.Dispatch (dit, _nGroups, _nGroups, 1);
 				Swap ();
 			}
 		}
-		void FftY() {
+		void FftY(Direction dir) {
+			var dit = (dir == Direction.Forward ? KERNEL_DIT_Y_FORWARD : KERNEL_DIT_Y_BACKWARD);
+
 			fft.SetTexture (KERNEL_BitReversalY, SHADER_FFT_IN, _fftTexIn);
 			fft.SetTexture (KERNEL_BitReversalY, SHADER_FFT_OUT, _fftTexOut);
 			fft.SetBuffer (KERNEL_BitReversalY, SHADER_BIT_REVERSAL, _bitReversalBuf);
@@ -102,9 +113,9 @@ namespace nobnak.FFT {
 			while ((ns <<= 1) <= _n) {
 				fft.SetInt (SHADER_NS, ns);
 				fft.SetInt (SHADER_NS2, ns / 2);
-				fft.SetTexture (KERNEL_DitY, SHADER_FFT_IN, _fftTexIn);
-				fft.SetTexture (KERNEL_DitY, SHADER_FFT_OUT, _fftTexOut);
-				fft.Dispatch (KERNEL_DitY, _nGroups, _nGroups, 1);
+				fft.SetTexture (dit, SHADER_FFT_IN, _fftTexIn);
+				fft.SetTexture (dit, SHADER_FFT_OUT, _fftTexOut);
+				fft.Dispatch (dit, _nGroups, _nGroups, 1);
 				Swap ();
 			}
 		}

@@ -2,6 +2,8 @@
 #pragma kernel BitReversalY
 #pragma kernel DitX
 #pragma kernel DitY
+#pragma kernel DitX BACKWARD
+#pragma kernel DitY BACKWARD
 #pragma kernel Scale
 
 #define NTHREADS 8
