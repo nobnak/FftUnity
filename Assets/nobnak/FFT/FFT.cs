@@ -76,7 +76,7 @@ namespace nobnak.FFT {
 				return;
 
 			Release();
-			_n = photo.width;
+			_n = texIn.width;
 			_nGroups = _n / NTHREADS_IN_GROUP;
 			fft.SetInt(SHADER_N, _n);
 			fft.SetFloat(SHADER_SCALE, 1f / _n);
