@@ -47,11 +47,7 @@ namespace nobnak.FFT {
 		public Texture Forward(Texture spaceTex) {
 			Init(spaceTex);
 
-			_fftTexOut.DiscardContents();
-			Graphics.Blit(spaceTex, _fftTexOut);
-			Swap();
-
-			FftX(Direction.Forward);
+			FftX(Direction.Forward, spaceTex);
 			FftY(Direction.Forward);
 			Normalize();
 			return _fftTexIn;
@@ -59,11 +55,7 @@ namespace nobnak.FFT {
 		public Texture Backward(Texture freqTex) {
 			Init(freqTex);
 
-			_fftTexOut.DiscardContents();
-			Graphics.Blit(freqTex, _fftTexOut);
-			Swap();
-
-			FftX(Direction.Backward);
+			FftX(Direction.Backward, freqTex);
 			FftY(Direction.Backward);
 			Normalize();
 			return _fftTexIn;
@@ -104,10 +96,11 @@ namespace nobnak.FFT {
 		}
 		
 		void Swap() { var tmp = _fftTexIn; _fftTexIn = _fftTexOut; _fftTexOut = tmp; }
-		void FftX(Direction dir) {
+		void FftX(Direction dir) { FftX(dir, _fftTexIn); }
+		void FftX(Direction dir, Texture texIn) {
 			var dit = (dir == Direction.Forward ? KERNEL_DIT_X_FORWARD : KERNEL_DIT_X_BACKWARD);
 
-			_fft.SetTexture(KERNEL_BitReversalX, SHADER_FFT_IN, _fftTexIn);
+			_fft.SetTexture(KERNEL_BitReversalX, SHADER_FFT_IN, texIn);
 			_fft.SetTexture(KERNEL_BitReversalX, SHADER_FFT_OUT, _fftTexOut);
 			_fft.SetBuffer(KERNEL_BitReversalX, SHADER_BIT_REVERSAL, _bitReversalBuf);
 			_fftTexOut.DiscardContents();
