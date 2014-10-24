@@ -27,24 +27,30 @@ namespace nobnak.FFT {
 		public const string SHADER_FFT_IN = "FftIn";
 		public const string SHADER_FFT_OUT = "FftOut";
 
-		public ComputeShader fft;
-
 		private int _n = -1;
 		private int _nGroups;
+		private ComputeShader _fft;
+		
 
 		private ComputeBuffer _bitReversalBuf;
 
 		private RenderTexture _fftTexIn;
 		private RenderTexture _fftTexOut;
 
-		~FFT() { Release(); }
+		public FFT(ComputeShader fft) {
+			this._fft = fft;
+		}
 		#region IDisposable implementation
 		public void Dispose () { Release(); }
 		#endregion
 
 		public Texture Forward(Texture spaceTex) {
 			Init(spaceTex);
-			Graphics.Blit(spaceTex, _fftTexIn);
+
+			_fftTexOut.DiscardContents();
+			Graphics.Blit(spaceTex, _fftTexOut);
+			Swap();
+
 			FftX(Direction.Forward);
 			FftY(Direction.Forward);
 			Normalize();
@@ -52,7 +58,11 @@ namespace nobnak.FFT {
 		}
 		public Texture Backward(Texture freqTex) {
 			Init(freqTex);
-			Graphics.Blit(freqTex, _fftTexIn);
+
+			_fftTexOut.DiscardContents();
+			Graphics.Blit(freqTex, _fftTexOut);
+			Swap();
+
 			FftX(Direction.Backward);
 			FftY(Direction.Backward);
 			Normalize();
@@ -78,8 +88,8 @@ namespace nobnak.FFT {
 			Release();
 			_n = texIn.width;
 			_nGroups = _n / NTHREADS_IN_GROUP;
-			fft.SetInt(SHADER_N, _n);
-			fft.SetFloat(SHADER_SCALE, 1f / _n);
+			_fft.SetInt(SHADER_N, _n);
+			_fft.SetFloat(SHADER_SCALE, 1f / _n);
 			
 			_fftTexIn = new RenderTexture(_n, _n, 0, RenderTextureFormat.RGFloat, RenderTextureReadWrite.Linear);
 			_fftTexOut = new RenderTexture(_n, _n, 0, RenderTextureFormat.RGFloat, RenderTextureReadWrite.Linear);
@@ -97,44 +107,49 @@ namespace nobnak.FFT {
 		void FftX(Direction dir) {
 			var dit = (dir == Direction.Forward ? KERNEL_DIT_X_FORWARD : KERNEL_DIT_X_BACKWARD);
 
-			fft.SetTexture (KERNEL_BitReversalX, SHADER_FFT_IN, _fftTexIn);
-			fft.SetTexture (KERNEL_BitReversalX, SHADER_FFT_OUT, _fftTexOut);
-			fft.SetBuffer (KERNEL_BitReversalX, SHADER_BIT_REVERSAL, _bitReversalBuf);
-			fft.Dispatch (KERNEL_BitReversalX, _nGroups, _nGroups, 1);
+			_fft.SetTexture(KERNEL_BitReversalX, SHADER_FFT_IN, _fftTexIn);
+			_fft.SetTexture(KERNEL_BitReversalX, SHADER_FFT_OUT, _fftTexOut);
+			_fft.SetBuffer(KERNEL_BitReversalX, SHADER_BIT_REVERSAL, _bitReversalBuf);
+			_fftTexOut.DiscardContents();
+			_fft.Dispatch(KERNEL_BitReversalX, _nGroups, _nGroups, 1);
 			Swap ();
 
 			var ns = 1;
 			while ((ns <<= 1) <= _n) {
-				fft.SetInt (SHADER_NS, ns);
-				fft.SetInt (SHADER_NS2, ns / 2);
-				fft.SetTexture (dit, SHADER_FFT_IN, _fftTexIn);
-				fft.SetTexture (dit, SHADER_FFT_OUT, _fftTexOut);
-				fft.Dispatch (dit, _nGroups, _nGroups, 1);
+				_fft.SetInt(SHADER_NS, ns);
+				_fft.SetInt(SHADER_NS2, ns / 2);
+				_fft.SetTexture(dit, SHADER_FFT_IN, _fftTexIn);
+				_fft.SetTexture(dit, SHADER_FFT_OUT, _fftTexOut);
+				_fftTexOut.DiscardContents();
+				_fft.Dispatch(dit, _nGroups, _nGroups, 1);
 				Swap ();
 			}
 		}
 		void FftY(Direction dir) {
 			var dit = (dir == Direction.Forward ? KERNEL_DIT_Y_FORWARD : KERNEL_DIT_Y_BACKWARD);
 
-			fft.SetTexture (KERNEL_BitReversalY, SHADER_FFT_IN, _fftTexIn);
-			fft.SetTexture (KERNEL_BitReversalY, SHADER_FFT_OUT, _fftTexOut);
-			fft.SetBuffer (KERNEL_BitReversalY, SHADER_BIT_REVERSAL, _bitReversalBuf);
-			fft.Dispatch (KERNEL_BitReversalY, _nGroups, _nGroups, 1);
+			_fft.SetTexture(KERNEL_BitReversalY, SHADER_FFT_IN, _fftTexIn);
+			_fft.SetTexture(KERNEL_BitReversalY, SHADER_FFT_OUT, _fftTexOut);
+			_fft.SetBuffer(KERNEL_BitReversalY, SHADER_BIT_REVERSAL, _bitReversalBuf);
+			_fftTexOut.DiscardContents();
+			_fft.Dispatch(KERNEL_BitReversalY, _nGroups, _nGroups, 1);
 			Swap ();
 			var ns = 1;
 			while ((ns <<= 1) <= _n) {
-				fft.SetInt (SHADER_NS, ns);
-				fft.SetInt (SHADER_NS2, ns / 2);
-				fft.SetTexture (dit, SHADER_FFT_IN, _fftTexIn);
-				fft.SetTexture (dit, SHADER_FFT_OUT, _fftTexOut);
-				fft.Dispatch (dit, _nGroups, _nGroups, 1);
+				_fft.SetInt(SHADER_NS, ns);
+				_fft.SetInt(SHADER_NS2, ns / 2);
+				_fft.SetTexture(dit, SHADER_FFT_IN, _fftTexIn);
+				_fft.SetTexture(dit, SHADER_FFT_OUT, _fftTexOut);
+				_fftTexOut.DiscardContents();
+				_fft.Dispatch(dit, _nGroups, _nGroups, 1);
 				Swap ();
 			}
 		}
 		void Normalize() {
-			fft.SetTexture (KERNEL_SCALE, SHADER_FFT_IN, _fftTexIn);
-			fft.SetTexture (KERNEL_SCALE, SHADER_FFT_OUT, _fftTexOut);
-			fft.Dispatch (KERNEL_SCALE, _nGroups, _nGroups, 1);
+			_fft.SetTexture (KERNEL_SCALE, SHADER_FFT_IN, _fftTexIn);
+			_fft.SetTexture (KERNEL_SCALE, SHADER_FFT_OUT, _fftTexOut);
+			_fftTexOut.DiscardContents();
+			_fft.Dispatch (KERNEL_SCALE, _nGroups, _nGroups, 1);
 			Swap ();
 		}
 	}
