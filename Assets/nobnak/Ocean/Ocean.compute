@@ -1,0 +1,38 @@
+﻿#pragma kernel Buf2Tex
+#pragma kernel UpdateH
+
+#define NTHREADS 8
+
+
+
+uint N;
+StructuredBuffer<float4> CopyBufIn;
+RWTexture2D<float4> CopyTexOut;
+
+float Time;
+Texture2D<float4> H0Tex;
+Texture2D<float4> WTex;
+RWTexture2D<float2> HTex;
+
+
+
+[numthreads(NTHREADS,NTHREADS,1)]
+void Buf2Tex(uint3 id : SV_DispatchThreadID) {
+	uint iLinear = id.x + id.y * N;
+	CopyTexOut[id.xy] = CopyBufIn[iLinear];
+}
+[numthreads(NTHREADS,NTHREADS,1)]
+void UpdateH(uint3 id : SV_DispatchThreadID) {
+	float4 h0 = H0Tex[id.xy];
+	float w = WTex[id.xy].x;
+	
+	float2 hp = h0.xy;
+	float2 hm = h0.zw;
+	float rad = w * Time;
+	float c = cos(rad);
+	float s = sin(rad);
+	
+	HTex[id.xy] = float2(
+		(hp.x + hm.x) * c + (hm.y - hp.y) * s,
+		(hp.y + hm.y) * c + (hp.x - hm.x) * s);
+}

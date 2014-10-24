@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: efab266a06179b248b959db66d744d9b
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - photo: {fileID: 2800000, guid: 0f0dc22e86a72a74da5ea436c7dc1b09, type: 3}
+  - ocean: {fileID: 7200000, guid: bd38f9d4f90cd324a9fe784a40462e6f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
