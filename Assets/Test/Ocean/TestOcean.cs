@@ -24,6 +24,7 @@ public class TestOcean : MonoBehaviour {
 	private RenderTexture _h0Tex;
 	private RenderTexture _wTex;
 	private RenderTexture _hTex;
+	private RenderTexture _nTex;
 
 	void OnDestroy() {
 		_fft.Dispose();
@@ -34,6 +35,7 @@ public class TestOcean : MonoBehaviour {
 		_h0Tex.Release();
 		_wTex.Release();
 		_hTex.Release();
+		_nTex.Release();
 	}
 	void Start () {
 		_fft = new FFT(fft);
@@ -64,11 +66,14 @@ public class TestOcean : MonoBehaviour {
 		_h0Tex = new RenderTexture(N, N, 0, RenderTextureFormat.ARGBFloat,RenderTextureReadWrite.Linear);
 		_wTex = new RenderTexture(N, N, 0, RenderTextureFormat.ARGBFloat,RenderTextureReadWrite.Linear);
 		_hTex = new RenderTexture(N, N, 0, RenderTextureFormat.RGFloat, RenderTextureReadWrite.Linear);
-		_h0Tex.filterMode = _wTex.filterMode = _hTex.filterMode = FilterMode.Point;
-		_h0Tex.enableRandomWrite = _wTex.enableRandomWrite = _hTex.enableRandomWrite = true;
+		_nTex = new RenderTexture(N, N, 0, RenderTextureFormat.ARGBFloat, RenderTextureReadWrite.Linear);
+		_h0Tex.filterMode = _wTex.filterMode = _hTex.filterMode = _nTex.filterMode = FilterMode.Bilinear;
+		_h0Tex.wrapMode = _wTex.wrapMode = _hTex.wrapMode = _nTex.wrapMode = TextureWrapMode.Repeat;
+		_h0Tex.enableRandomWrite = _wTex.enableRandomWrite = _hTex.enableRandomWrite = _nTex.enableRandomWrite = true;
 		_h0Tex.Create();
 		_wTex.Create();
 		_hTex.Create();
+		_nTex.Create();
 
 		ocean.SetInt(OceanConst.SHADER_N, N);
 
@@ -91,6 +96,15 @@ public class TestOcean : MonoBehaviour {
 		_hTex.DiscardContents();
 		ocean.Dispatch(OceanConst.KERNEL_UPDATE_H, _nGroups, _nGroups, 1);
 
-		renderer.sharedMaterial.mainTexture = _fft.Backward(_hTex);
+		var heightTex = _fft.Backward(_hTex);
+		var heightTexDx = 1f / heightTex.width;
+		ocean.SetFloat(OceanConst.SHADER_DX, oceanSize * heightTexDx);
+		ocean.SetFloat(OceanConst.SHADER_HEIGHT_TEX_DX, heightTexDx);
+		ocean.SetTexture(OceanConst.KERNEL_UPDATE_N, OceanConst.SHADER_HEIGHT_TEX, heightTex);
+		ocean.SetTexture(OceanConst.KERNEL_UPDATE_N, OceanConst.SHADER_N_TEX, _nTex);
+		_nTex.DiscardContents();
+		ocean.Dispatch(OceanConst.KERNEL_UPDATE_N, _nGroups, _nGroups, 1);
+
+		renderer.sharedMaterial.mainTexture = _nTex;
 	}
 }

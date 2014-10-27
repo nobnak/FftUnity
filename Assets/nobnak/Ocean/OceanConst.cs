@@ -6,6 +6,7 @@ namespace nobnak.Ocean {
 	public static class OceanConst {
 		public const int KERNEL_BUF2TEX = 0;
 		public const int KERNEL_UPDATE_H = 1;
+		public const int KERNEL_UPDATE_N = 2;
 
 		public const int NTHREADS_IN_GROUP = 8;
 		
@@ -17,5 +18,10 @@ namespace nobnak.Ocean {
 		public const string SHADER_H0_TEX = "H0Tex";
 		public const string SHADER_W_TEX = "WTex";
 		public const string SHADER_H_TEX = "HTex";
+
+		public const string SHADER_DX = "Dx";
+		public const string SHADER_HEIGHT_TEX_DX = "HeightTexDx";
+		public const string SHADER_HEIGHT_TEX = "HeightTex";
+		public const string SHADER_N_TEX = "NTex";
 	}
 }

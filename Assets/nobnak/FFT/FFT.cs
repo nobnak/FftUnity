@@ -86,6 +86,7 @@ namespace nobnak.FFT {
 			_fftTexIn = new RenderTexture(_n, _n, 0, RenderTextureFormat.RGFloat, RenderTextureReadWrite.Linear);
 			_fftTexOut = new RenderTexture(_n, _n, 0, RenderTextureFormat.RGFloat, RenderTextureReadWrite.Linear);
 			_fftTexIn.filterMode = _fftTexOut.filterMode = texIn.filterMode;
+			_fftTexIn.wrapMode = _fftTexOut.wrapMode = texIn.wrapMode;
 			_fftTexIn.enableRandomWrite = _fftTexOut.enableRandomWrite = true;
 			_fftTexIn.Create();
 			_fftTexOut.Create();
