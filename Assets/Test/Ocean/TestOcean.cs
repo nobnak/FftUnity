@@ -6,6 +6,8 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 
 public class TestOcean : MonoBehaviour {
+	public const string SHADER_NORMAL_MAP = "_BumpMap";
+
 	public ComputeShader fft;
 	public ComputeShader ocean;
 
@@ -105,6 +107,6 @@ public class TestOcean : MonoBehaviour {
 		_nTex.DiscardContents();
 		ocean.Dispatch(OceanConst.KERNEL_UPDATE_N, _nGroups, _nGroups, 1);
 
-		renderer.sharedMaterial.mainTexture = _nTex;
+		renderer.sharedMaterial.SetTexture(SHADER_NORMAL_MAP, _nTex);
 	}
 }

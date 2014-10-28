@@ -51,6 +51,6 @@ void UpdateN(uint3 id : SV_DispatchThreadID) {
 	float hx = HeightTex.SampleLevel(samplerHeightTex, uv + float2( HeightTexDx, 0), 0).x;
 	float hy = HeightTex.SampleLevel(samplerHeightTex, uv + float2(0,  HeightTexDx), 0).x;
 	
-	float3 n = normalize(float3(float2((hx - h), (hy - h)) / Dx, -1));
+	float3 n = normalize(float3(float2((h - hx), (h - hy)) / Dx, 1));
 	NTex[id.xy] = float4(n, 1);
 }

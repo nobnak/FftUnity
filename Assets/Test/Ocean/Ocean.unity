@@ -190,7 +190,7 @@ MonoBehaviour:
   fft: {fileID: 7200000, guid: e91c86f0ed60a324183f2e4adc2a387f, type: 3}
   ocean: {fileID: 7200000, guid: bd38f9d4f90cd324a9fe784a40462e6f, type: 3}
   oceanSize: 100
-  N: 64
+  N: 512
   windVelocity: {x: 5, y: 0}
 --- !u!23 &1722440918
 Renderer:
