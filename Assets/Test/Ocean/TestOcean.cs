@@ -40,6 +40,8 @@ public class TestOcean : MonoBehaviour {
 		_nTex.Release();
 	}
 	void Start () {
+		Camera.main.depthTextureMode |= DepthTextureMode.Depth;
+
 		_fft = new FFT(fft);
 
 		var k = new K(N, oceanSize);
