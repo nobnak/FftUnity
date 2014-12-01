@@ -311,6 +311,7 @@ MonoBehaviour:
   oceanSize: 20
   N: 512
   windVelocity: {x: 0, y: 5}
+  height: 5
 --- !u!23 &1722440918
 Renderer:
   m_ObjectHideFlags: 0

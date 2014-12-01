@@ -60,7 +60,7 @@
 			float dist = max(0.0, sceneZ - oceanZ);
 			float absorb = saturate(1.0 - exp(-_Absorb * dist));
 			
-			o.Emission = f * cRefl.rgb + absorb * _SeaColor.rgb;
+			o.Emission = f * cRefl.rgb + (1.0 - f) * absorb * _SeaColor.rgb;
 			o.Alpha = absorb;
 		}
 		ENDCG

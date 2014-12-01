@@ -6,6 +6,8 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 
 public class TestOcean : MonoBehaviour {
+	public const string SHADER_HEIGHT = "_Height";
+	public const string SHADER_HEIGHT_MAP = "_HeightMap";
 	public const string SHADER_NORMAL_MAP = "_BumpMap";
 
 	public ComputeShader fft;
@@ -14,6 +16,7 @@ public class TestOcean : MonoBehaviour {
 	public float oceanSize = 100f;
 	public int N = 64;
 	public Vector2 windVelocity = new Vector2(5f, 0f);
+	public float height = 1f;
 
 	private int _nGroups;
 	private FFT _fft;
@@ -104,11 +107,18 @@ public class TestOcean : MonoBehaviour {
 		var heightTexDx = 1f / heightTex.width;
 		ocean.SetFloat(OceanConst.SHADER_DX, oceanSize * heightTexDx);
 		ocean.SetFloat(OceanConst.SHADER_HEIGHT_TEX_DX, heightTexDx);
+		ocean.SetFloat(OceanConst.SHADER_HEIGHT, height);
 		ocean.SetTexture(OceanConst.KERNEL_UPDATE_N, OceanConst.SHADER_HEIGHT_TEX, heightTex);
 		ocean.SetTexture(OceanConst.KERNEL_UPDATE_N, OceanConst.SHADER_N_TEX, _nTex);
 		_nTex.DiscardContents();
 		ocean.Dispatch(OceanConst.KERNEL_UPDATE_N, _nGroups, _nGroups, 1);
 
-		renderer.sharedMaterial.SetTexture(SHADER_NORMAL_MAP, _nTex);
+		var mat = renderer.sharedMaterial;
+		if (mat.HasProperty(SHADER_HEIGHT))
+			mat.SetFloat(SHADER_HEIGHT, height);
+		if (mat.HasProperty(SHADER_HEIGHT_MAP))
+			mat.SetTexture(SHADER_HEIGHT_MAP, heightTex);
+		if (mat.HasProperty(SHADER_NORMAL_MAP))
+			mat.SetTexture(SHADER_NORMAL_MAP, _nTex);
 	}
 }

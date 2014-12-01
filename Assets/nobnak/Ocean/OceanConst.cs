@@ -20,6 +20,7 @@ namespace nobnak.Ocean {
 		public const string SHADER_H_TEX = "HTex";
 
 		public const string SHADER_DX = "Dx";
+		public const string SHADER_HEIGHT = "Height";
 		public const string SHADER_HEIGHT_TEX_DX = "HeightTexDx";
 		public const string SHADER_HEIGHT_TEX = "HeightTex";
 		public const string SHADER_N_TEX = "NTex";

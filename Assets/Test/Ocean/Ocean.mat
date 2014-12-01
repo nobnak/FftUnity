@@ -31,7 +31,7 @@ Material:
         first:
           name: _Cube
         second:
-          m_Texture: {fileID: 8900000, guid: 22d4cca990ebbed40ac422c04c2feac5, type: 2}
+          m_Texture: {fileID: 8900000, guid: 9e1bfb9ee2ab9b746af7edd0122e9ef8, type: 2}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -42,11 +42,11 @@ Material:
       data:
         first:
           name: _ICube
-        second: 2.47000003
+        second: 14.1300001
       data:
         first:
           name: _Absorb
-        second: .349999994
+        second: .800000012
     m_Colors:
       data:
         first:
@@ -55,4 +55,4 @@ Material:
       data:
         first:
           name: _SeaColor
-        second: {r: .062252976, g: .229281321, b: .345098048, a: 1}
+        second: {r: 0, g: 0, b: 0, a: 1}
