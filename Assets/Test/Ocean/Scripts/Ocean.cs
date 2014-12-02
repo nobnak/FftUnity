@@ -5,9 +5,11 @@ using nobnak.Ocean;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 
-public class TestOcean : MonoBehaviour {
+public class Ocean : MonoBehaviour {
 	public const string SHADER_HEIGHT_MAP = "_HeightMap";
 	public const string SHADER_NORMAL_MAP = "_BumpMap";
+	public const string SHADER_LOCAL_VIEW_POS = "_LocalView";
+	public const string SHADER_WORLD_VIEW_POS = "_WorldView";
 
 	public ComputeShader fft;
 	public ComputeShader ocean;
@@ -16,6 +18,7 @@ public class TestOcean : MonoBehaviour {
 	public int N = 64;
 	public Vector2 windVelocity = new Vector2(5f, 0f);
 	public float height = 1f;
+	public Transform viewPos;
 
 	private int _nGroups;
 	private FFT _fft;
@@ -117,5 +120,15 @@ public class TestOcean : MonoBehaviour {
 			mat.SetTexture(SHADER_HEIGHT_MAP, heightTex);
 		if (mat.HasProperty(SHADER_NORMAL_MAP))
 			mat.SetTexture(SHADER_NORMAL_MAP, _nTex);
+
+		var view = (Vector4)viewPos.position;
+		view.w = 1f;
+		if (mat.HasProperty(SHADER_WORLD_VIEW_POS))
+			mat.SetVector(SHADER_WORLD_VIEW_POS, view);
+		if (mat.HasProperty(SHADER_LOCAL_VIEW_POS)) {
+			view = (Vector4)transform.InverseTransformPoint(view);
+			view.w = 1f;
+			mat.SetVector(SHADER_LOCAL_VIEW_POS, view);
+		}
 	}
 }
