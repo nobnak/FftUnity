@@ -185,8 +185,8 @@ Camera:
   m_GameObject: {fileID: 1694655095}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -252,8 +252,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fft: {fileID: 7200000, guid: e91c86f0ed60a324183f2e4adc2a387f, type: 3}
   ocean: {fileID: 7200000, guid: bd38f9d4f90cd324a9fe784a40462e6f, type: 3}
-  oceanSize: 100
-  N: 1024
+  oceanSize: 20
+  N: 512
   windVelocity: {x: 0, y: 5}
   height: 5
 --- !u!23 &1722440918
@@ -282,7 +282,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1722440916}
-  m_Mesh: {fileID: 4300000, guid: 01d03d59fdd51ac49b4cd080e2b6ad24, type: 2}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1722440920
 Transform:
   m_ObjectHideFlags: 0
@@ -291,7 +291,7 @@ Transform:
   m_GameObject: {fileID: 1722440916}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1

@@ -5,12 +5,13 @@ using UnityEditor;
 public static class MeshGenerator {
 	[MenuItem("Custom/Generate Quads")]
 	public static void GenQuad() {
-		var repeat = 10;
+		var repeat = 1;
 		var nVertices = 4 * repeat * repeat;
 		var nIndices = 6 * repeat * repeat;
 
 		var vertices = new Vector3[nVertices];
 		var uv = new Vector2[nVertices];
+		var normals = new Vector3[nVertices];
 		var indices = new int[nIndices];
 
 		var iVertex = 0;
@@ -25,6 +26,8 @@ public static class MeshGenerator {
 				uv[iVertex + 1] = new Vector2(1f, 0f);
 				uv[iVertex + 2] = new Vector2(0f, 1f);
 				uv[iVertex + 3] = new Vector2(1f, 1f);
+				normals[iVertex] = normals[iVertex + 1] = normals[iVertex + 2] = normals[iVertex + 3] 
+					= new Vector3(0f, 0f, -1f);
 				var baseVertex = 4 * (x + y * repeat);
 				indices[iIndex    ] = baseVertex;
 				indices[iIndex + 1] = baseVertex + 3;
@@ -40,9 +43,9 @@ public static class MeshGenerator {
 		var mesh = new Mesh();
 		mesh.vertices = vertices;
 		mesh.uv = uv;
+		mesh.normals = normals;
 		mesh.triangles = indices;
 		mesh.RecalculateBounds();
-		mesh.RecalculateNormals();
 
 		AssetDatabase.CreateAsset(mesh, string.Format("Assets/Quad{0}.asset", repeat));
 	}

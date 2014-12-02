@@ -45,7 +45,27 @@ Material:
       data:
         first:
           name: _Shininess
-        second: 197.899994
+        second: 1
+      data:
+        first:
+          name: _ICube
+        second: 1
+      data:
+        first:
+          name: _F0
+        second: .0199999996
+      data:
+        first:
+          name: _LightRough
+        second: 200
+      data:
+        first:
+          name: _LightPower
+        second: 20
+      data:
+        first:
+          name: _SkyPower
+        second: 5
       data:
         first:
           name: _Gloss
@@ -54,35 +74,15 @@ Material:
         first:
           name: _Fresnel0
         second: .0199999996
-      data:
-        first:
-          name: _F0
-        second: .0199999996
-      data:
-        first:
-          name: _ICube
-        second: 1
-      data:
-        first:
-          name: _LightRough
-        second: 500
-      data:
-        first:
-          name: _LightPower
-        second: 40
-      data:
-        first:
-          name: _SkyPower
-        second: 5
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: .552941203, g: .552941203, b: .552941203, a: 1}
       data:
         first:
           name: _SpecColor
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: .53725493, g: .53725493, b: .53725493, a: 1}
       data:
         first:
           name: _SeaColor

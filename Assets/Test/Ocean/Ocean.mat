@@ -37,12 +37,12 @@ Material:
     m_Floats:
       data:
         first:
-          name: _F0
-        second: .0199999996
-      data:
-        first:
           name: _ICube
         second: 14.1300001
+      data:
+        first:
+          name: _F0
+        second: .0199999996
       data:
         first:
           name: _Absorb

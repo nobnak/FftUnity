@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 
 public class TestOcean : MonoBehaviour {
-	public const string SHADER_HEIGHT = "_Height";
 	public const string SHADER_HEIGHT_MAP = "_HeightMap";
 	public const string SHADER_NORMAL_MAP = "_BumpMap";
 
@@ -114,8 +113,6 @@ public class TestOcean : MonoBehaviour {
 		ocean.Dispatch(OceanConst.KERNEL_UPDATE_N, _nGroups, _nGroups, 1);
 
 		var mat = renderer.sharedMaterial;
-		if (mat.HasProperty(SHADER_HEIGHT))
-			mat.SetFloat(SHADER_HEIGHT, height);
 		if (mat.HasProperty(SHADER_HEIGHT_MAP))
 			mat.SetTexture(SHADER_HEIGHT_MAP, heightTex);
 		if (mat.HasProperty(SHADER_NORMAL_MAP))
