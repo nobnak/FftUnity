@@ -1,4 +1,4 @@
-﻿Shader "Custom/Specular" {
+﻿Shader "Custom/Water" {
 	Properties {
 		_BumpMap ("Normal Map", 2D) = "white" {}
 		_LightRough ("Light Roubhness", Float) = 1
@@ -7,6 +7,7 @@
 		_SkyCube ("Sky", Cube) = "black" {}
 		_SkyPower ("Sky Intensity", Float) = 1.0
 		_SeaColor ("Sea Color", Color) = (0, 0, 0, 1)
+		_Parallax ("Height", Float) = 0.02
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -15,7 +16,7 @@
 		CGPROGRAM
 		#pragma target 5.0
 		#pragma surface surf Water
-
+		
 		sampler2D _BumpMap;
 		float _LightRough;
 		float _LightPower;
@@ -23,11 +24,13 @@
 		samplerCUBE _SkyCube;
 		float _SkyPower;
 		float4 _SeaColor;
+		float _Parallax;
 
 		struct Input {
 			float2 uv_BumpMap;
 			float3 worldRefl; INTERNAL_DATA
 			float3 worldNormal;
+			float3 viewDir;
 		};
 		
 		float Fresnel(float3 v, float3 n) {
@@ -47,7 +50,11 @@
 		}
 
 		void surf (Input IN, inout SurfaceOutput o) {
+			float h = tex2D(_BumpMap, IN.uv_BumpMap).w;
+			float2 offset = ParallaxOffset(h, _Parallax, IN.viewDir);
+			IN.uv_BumpMap += offset;
 			o.Normal = tex2D(_BumpMap, IN.uv_BumpMap).xyz;
+			
 			IN.worldRefl = WorldReflectionVector(IN, o.Normal);
 			IN.worldNormal = WorldNormalVector(IN, o.Normal);
 			
@@ -55,7 +62,8 @@
 			float f = Fresnel(r, IN.worldNormal);			
 			float4 cRefl = _SkyPower * texCUBE(_SkyCube, r);
 			
-			o.Emission =  f * cRefl + (1.0 - f) * _SeaColor.rgb;
+			//o.Emission =  f * cRefl + (1.0 - f) * _SeaColor.rgb;
+			o.Emission = f * _SkyPower;
 		}
 		ENDCG
 	} 

@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Specular
+  m_Name: Water
   m_Shader: {fileID: 4800000, guid: 5ced4b50eed10b346b0094f8145210b7, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
@@ -38,7 +38,14 @@ Material:
         first:
           name: _SkyCube
         second:
-          m_Texture: {fileID: 8900000, guid: 9e1bfb9ee2ab9b746af7edd0122e9ef8, type: 2}
+          m_Texture: {fileID: 8900000, guid: 22d4cca990ebbed40ac422c04c2feac5, type: 2}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _HeightMap
+        second:
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -57,7 +64,7 @@ Material:
       data:
         first:
           name: _LightRough
-        second: 200
+        second: 300
       data:
         first:
           name: _LightPower
@@ -65,7 +72,7 @@ Material:
       data:
         first:
           name: _SkyPower
-        second: 5
+        second: .379999995
       data:
         first:
           name: _Gloss
@@ -74,6 +81,10 @@ Material:
         first:
           name: _Fresnel0
         second: .0199999996
+      data:
+        first:
+          name: _Parallax
+        second: .779999971
     m_Colors:
       data:
         first:
