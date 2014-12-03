@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Water
+  m_Name: DarkWater
   m_Shader: {fileID: 4800000, guid: 5ced4b50eed10b346b0094f8145210b7, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
@@ -84,7 +84,7 @@ Material:
       data:
         first:
           name: _Parallax
-        second: .300000012
+        second: .200000003
     m_Colors:
       data:
         first:
@@ -114,3 +114,7 @@ Material:
         first:
           name: _WorldView
         second: {r: 0, g: 10.0000019, b: -10, a: 1}
+      data:
+        first:
+          name: _WorldViewPos
+        second: {r: 0, g: 5.00000238, b: -15.000001, a: 1}
