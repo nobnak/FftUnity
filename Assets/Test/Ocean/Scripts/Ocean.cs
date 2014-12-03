@@ -15,7 +15,6 @@ public class Ocean : MonoBehaviour {
 	public int N = 64;
 	public Vector2 windVelocity = new Vector2(5f, 0f);
 	public float height = 1f;
-	public Transform viewPos;
 
 	private int _nGroups;
 	private FFT _fft;

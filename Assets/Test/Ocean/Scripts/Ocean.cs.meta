@@ -2,7 +2,10 @@ fileFormatVersion: 2
 guid: 987990d37e31d2345bd5646cf2e4d751
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - fft: {fileID: 7200000, guid: e91c86f0ed60a324183f2e4adc2a387f, type: 3}
+  - ocean: {fileID: 7200000, guid: bd38f9d4f90cd324a9fe784a40462e6f, type: 3}
+  - viewPos: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

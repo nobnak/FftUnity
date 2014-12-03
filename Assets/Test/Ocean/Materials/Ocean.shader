@@ -27,9 +27,10 @@
 
 		struct Input {
 			float2 uv_BumpMap;
-			float3 worldRefl; INTERNAL_DATA
+			float3 worldRefl;
 			float3 worldNormal;
 			float4 screenPos;
+			INTERNAL_DATA
 		};
 		
 		float Fresnel(float3 v, float3 n) {

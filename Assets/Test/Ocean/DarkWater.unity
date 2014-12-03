@@ -283,7 +283,6 @@ MonoBehaviour:
   N: 512
   windVelocity: {x: 0, y: 5}
   height: 20
-  viewPos: {fileID: 675170139}
 --- !u!23 &1722440918
 Renderer:
   m_ObjectHideFlags: 0

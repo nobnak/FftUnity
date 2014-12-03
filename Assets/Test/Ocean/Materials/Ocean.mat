@@ -38,7 +38,7 @@ Material:
       data:
         first:
           name: _ICube
-        second: 1.95000005
+        second: 1
       data:
         first:
           name: _F0
@@ -46,7 +46,7 @@ Material:
       data:
         first:
           name: _Absorb
-        second: .800000012
+        second: .300000012
     m_Colors:
       data:
         first:
@@ -55,4 +55,4 @@ Material:
       data:
         first:
           name: _SeaColor
-        second: {r: 0, g: 0, b: 0, a: 1}
+        second: {r: .0875970796, g: .170426503, b: .250980407, a: 1}
