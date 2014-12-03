@@ -3,8 +3,8 @@ Ocean Simulation Using FFT on GPU for Unity
 * FFT-base Wind-Driven Ocean [1]
 * Cooley-Tukey FFT Algorithm [2]
 * Scenes
-** Ocean : Reflection, Refraction, Absorption
-** DarkWater : Parallax, Lighting
+ * Ocean : Reflection, Refraction, Absorption
+ * DarkWater : Parallax, Lighting
 
 [![ScreenShot](Img/ScreenShot01.jpg)](https://vimeo.com/113480694)
 
