@@ -1,6 +1,6 @@
 Ocean Simulation Using FFT on GPU for Unity
 ========
-* FFT-base Wind-Driven Ocean [1]
+* FFT-Based Wind-Driven Ocean [1]
 * Cooley-Tukey FFT Algorithm [2]
 * Scenes
  * Ocean : Reflection, Refraction, Absorption
