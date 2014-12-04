@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 public class Ocean : MonoBehaviour {
 	public const string SHADER_HEIGHT_MAP = "_HeightMap";
 	public const string SHADER_NORMAL_MAP = "_BumpMap";
+	public const string SHADER_WORLD_VIEW = "_WorldViewPos";
 
 	public ComputeShader fft;
 	public ComputeShader ocean;
@@ -15,6 +16,7 @@ public class Ocean : MonoBehaviour {
 	public int N = 64;
 	public Vector2 windVelocity = new Vector2(5f, 0f);
 	public float height = 1f;
+	public Transform view;
 
 	private int _nGroups;
 	private FFT _fft;
@@ -116,5 +118,10 @@ public class Ocean : MonoBehaviour {
 			mat.SetTexture(SHADER_HEIGHT_MAP, heightTex);
 		if (mat.HasProperty(SHADER_NORMAL_MAP))
 			mat.SetTexture(SHADER_NORMAL_MAP, _nTex);
+		if (mat.HasProperty(SHADER_WORLD_VIEW)) {
+			var viewPos = (Vector4)view.position;
+			viewPos.w = 1f;
+			mat.SetVector(SHADER_WORLD_VIEW, viewPos);
+		}
 	}
 }

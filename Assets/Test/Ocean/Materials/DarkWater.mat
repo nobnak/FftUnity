@@ -51,10 +51,6 @@ Material:
     m_Floats:
       data:
         first:
-          name: _Shininess
-        second: 1
-      data:
-        first:
           name: _ICube
         second: 1
       data:
@@ -63,16 +59,24 @@ Material:
         second: .0199999996
       data:
         first:
+          name: _Shininess
+        second: 1
+      data:
+        first:
           name: _LightRough
         second: 139.440002
       data:
         first:
           name: _LightPower
-        second: 20
+        second: 18
       data:
         first:
           name: _SkyPower
         second: .800000012
+      data:
+        first:
+          name: _Parallax
+        second: .200000003
       data:
         first:
           name: _Gloss
@@ -81,10 +85,6 @@ Material:
         first:
           name: _Fresnel0
         second: .0199999996
-      data:
-        first:
-          name: _Parallax
-        second: .200000003
     m_Colors:
       data:
         first:
@@ -92,12 +92,16 @@ Material:
         second: {r: .552941203, g: .552941203, b: .552941203, a: 1}
       data:
         first:
+          name: _SeaColor
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
           name: _SpecColor
         second: {r: .53725493, g: .53725493, b: .53725493, a: 1}
       data:
         first:
-          name: _SeaColor
-        second: {r: 0, g: 0, b: 0, a: 1}
+          name: _WorldViewPos
+        second: {r: 0, g: 5.00000238, b: -15.000001, a: 1}
       data:
         first:
           name: _ViewDir
@@ -114,7 +118,3 @@ Material:
         first:
           name: _WorldView
         second: {r: 0, g: 10.0000019, b: -10, a: 1}
-      data:
-        first:
-          name: _WorldViewPos
-        second: {r: 0, g: 5.00000238, b: -15.000001, a: 1}
