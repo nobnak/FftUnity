@@ -31,6 +31,8 @@ public class Ocean : MonoBehaviour {
 	private RenderTexture _hTex;
 	private RenderTexture _nTex;
 
+	private Rect _guiWindow;
+
 	void OnDestroy() {
 		_fft.Dispose();
 
@@ -44,6 +46,8 @@ public class Ocean : MonoBehaviour {
 	}
 	void Start () {
 		Camera.main.depthTextureMode |= DepthTextureMode.Depth;
+		var winSize = new Vector2(300f, 100f);
+		_guiWindow = new Rect(Screen.width - winSize.x, Screen.height - winSize.y, winSize.x, winSize.y);
 
 		_fft = new FFT(fft);
 
@@ -93,6 +97,21 @@ public class Ocean : MonoBehaviour {
 		ocean.SetTexture(OceanConst.KERNEL_BUF2TEX, OceanConst.SHADER_COPY_TEX_OUT, _wTex);
 		_wTex.DiscardContents();
 		ocean.Dispatch(OceanConst.KERNEL_BUF2TEX, _nGroups, _nGroups, 1);
+	}
+
+	void OnGUI() {
+		_guiWindow = GUILayout.Window(1, _guiWindow, Window, "View Position");
+	}
+	void Window(int id) {
+		GUILayout.BeginVertical();
+		var pos = view.position;
+		GUILayout.Label(string.Format("Horizontal : {0:f2}", pos.x));
+		pos.x = GUILayout.HorizontalSlider(pos.x, -15f, 15f);
+		GUILayout.Label(string.Format("Vertical : {0:f2}", pos.z));
+		pos.z = GUILayout.HorizontalSlider(pos.z, -15f, 15f);
+		view.position = pos;
+		GUILayout.EndVertical();
+		GUI.DragWindow();
 	}
 
 	void Update() {

@@ -29,16 +29,16 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _Cube
+          name: _SkyCube
         second:
-          m_Texture: {fileID: 8900000, guid: 9e1bfb9ee2ab9b746af7edd0122e9ef8, type: 2}
+          m_Texture: {fileID: 8900000, guid: 22d4cca990ebbed40ac422c04c2feac5, type: 2}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _SkyCube
+          name: _Cube
         second:
-          m_Texture: {fileID: 8900000, guid: 22d4cca990ebbed40ac422c04c2feac5, type: 2}
+          m_Texture: {fileID: 8900000, guid: 9e1bfb9ee2ab9b746af7edd0122e9ef8, type: 2}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -49,14 +49,6 @@ Material:
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
-      data:
-        first:
-          name: _ICube
-        second: 1
-      data:
-        first:
-          name: _F0
-        second: .0199999996
       data:
         first:
           name: _Shininess
@@ -71,12 +63,20 @@ Material:
         second: 18
       data:
         first:
+          name: _F0
+        second: .0199999996
+      data:
+        first:
           name: _SkyPower
         second: .800000012
       data:
         first:
           name: _Parallax
         second: .200000003
+      data:
+        first:
+          name: _ICube
+        second: 1
       data:
         first:
           name: _Gloss
@@ -92,16 +92,16 @@ Material:
         second: {r: .552941203, g: .552941203, b: .552941203, a: 1}
       data:
         first:
-          name: _SeaColor
-        second: {r: 0, g: 0, b: 0, a: 1}
-      data:
-        first:
           name: _SpecColor
         second: {r: .53725493, g: .53725493, b: .53725493, a: 1}
       data:
         first:
+          name: _SeaColor
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
           name: _WorldViewPos
-        second: {r: 0, g: 5.00000238, b: -15.000001, a: 1}
+        second: {r: 0, g: 5.0007205, b: -15.0028706, a: 1}
       data:
         first:
           name: _ViewDir
