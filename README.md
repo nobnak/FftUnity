@@ -6,7 +6,7 @@ Ocean Simulation Using FFT on GPU for Unity
  * Ocean : Reflection, Refraction, Absorption
  * DarkWater : Parallax, Lighting
 
-[![ScreenShot](Img/ScreenShot01.jpg)](https://vimeo.com/113487104)
+[![ScreenShot](Img/ScreenShot01.jpg)](https://vimeo.com/113574420)
 
 # References
 1. Tessendorf, J. (2001). Simulating ocean water. Simulating Nature: Realistic and Interactive …. Retrieved from https://evasion.imag.fr/Membres/Fabrice.Neyret/images/fluids-nuages/waves/Jonathan/articlesCG/simulating-ocean-water-01.pdf
