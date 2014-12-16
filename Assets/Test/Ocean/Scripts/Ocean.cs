@@ -8,6 +8,8 @@ public class Ocean : MonoBehaviour {
 	public const string SHADER_HEIGHT_MAP = "_HeightMap";
 	public const string SHADER_NORMAL_MAP = "_BumpMap";
 	public const string SHADER_WORLD_VIEW = "_WorldViewPos";
+	public const string SHADER_H0_MAP = "_H0Tex";
+	public const string SHADER_W_MAP = "_WTex";
 
 	public ComputeShader fft;
 	public ComputeShader ocean;
@@ -142,5 +144,9 @@ public class Ocean : MonoBehaviour {
 			viewPos.w = 1f;
 			mat.SetVector(SHADER_WORLD_VIEW, viewPos);
 		}
+		if (mat.HasProperty(SHADER_H0_MAP))
+			mat.SetTexture(SHADER_H0_MAP, _h0Tex);
+		if (mat.HasProperty(SHADER_W_MAP))
+			mat.SetTexture(SHADER_W_MAP, _wTex);
 	}
 }
