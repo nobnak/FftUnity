@@ -11,7 +11,8 @@ namespace nobnak.Ocean {
 		public static Vector2 StandardNormalDistribution() {
 			var u1 = Random.value;
 			var u2 = Random.value;
-			var sqrt = Mathf.Sqrt(-2f * Mathf.Log(u1));
+			var logU1 = -2f * Mathf.Log(u1);
+			var sqrt = (logU1 <= 0f) ? 0f : Mathf.Sqrt(logU1);
 			var theta = TWO_PI * u2;
 			var z0 = sqrt * Mathf.Cos(theta);
 			var z1 = sqrt * Mathf.Sin(theta);
