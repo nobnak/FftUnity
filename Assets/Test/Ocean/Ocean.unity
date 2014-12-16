@@ -208,8 +208,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1694655095}
-  m_LocalRotation: {x: .52843833, y: 0, z: 0, w: .848971725}
-  m_LocalPosition: {x: 0, y: 13.71, z: -9.47000027}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.80999994, z: -43.2000008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -249,6 +249,7 @@ MonoBehaviour:
   N: 512
   windVelocity: {x: 0, y: 5}
   height: 1
+  view: {fileID: 1694655101}
 --- !u!23 &1722440918
 Renderer:
   m_ObjectHideFlags: 0
