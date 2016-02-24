@@ -1,4 +1,6 @@
-﻿Shader "Custom/DakrWater" {
+﻿#warning Upgrade NOTE: unity_Scale shader variable was removed; replaced 'unity_Scale.w' with '1.0'
+
+Shader "Custom/DakrWater" {
 	Properties {
 		_BumpMap ("Normal Map", 2D) = "white" {}
 		_LightRough ("Light Roubhness", Float) = 1
@@ -61,7 +63,7 @@
 		}
 		
 		inline float3 Custom_ObjSpaceViewDir( in float4 v ) {
-			float3 objSpaceCameraPos = mul(_World2Object, float4(_WorldViewPos.xyz, 1)).xyz * unity_Scale.w;
+			float3 objSpaceCameraPos = mul(_World2Object, float4(_WorldViewPos.xyz, 1)).xyz * 1.0;
 			return objSpaceCameraPos - v.xyz;
 		}
 		
@@ -74,9 +76,9 @@
 			float3 viewDir = Custom_ObjSpaceViewDir(v.vertex);
 			OUT.viewDirForLight = mul (rotation, viewDir);
 			float3 worldViewDir = mul ((float3x3)_Object2World, -viewDir);
-			OUT._TtoW0 = float4(mul(rotation, _Object2World[0].xyz), worldViewDir.x)*unity_Scale.w;
-			OUT._TtoW1 = float4(mul(rotation, _Object2World[1].xyz), worldViewDir.y)*unity_Scale.w;
-			OUT._TtoW2 = float4(mul(rotation, _Object2World[2].xyz), worldViewDir.z)*unity_Scale.w;
+			OUT._TtoW0 = float4(mul(rotation, _Object2World[0].xyz), worldViewDir.x)*1.0;
+			OUT._TtoW1 = float4(mul(rotation, _Object2World[1].xyz), worldViewDir.y)*1.0;
+			OUT._TtoW2 = float4(mul(rotation, _Object2World[2].xyz), worldViewDir.z)*1.0;
 			OUT.lightDir = mul (rotation, ObjSpaceLightDir(v.vertex));
 			OUT.uv_BumpMap = v.texcoord;
 			TRANSFER_VERTEX_TO_FRAGMENT(OUT);

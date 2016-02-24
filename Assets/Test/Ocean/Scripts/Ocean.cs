@@ -76,10 +76,10 @@ public class Ocean : MonoBehaviour {
 		_h0Buf.SetData(h0BufData);
 		_wBuf.SetData(wBufData);
 
-		_h0Tex = new RenderTexture(N, N, 0, RenderTextureFormat.ARGBFloat,RenderTextureReadWrite.Linear);
-		_wTex = new RenderTexture(N, N, 0, RenderTextureFormat.ARGBFloat,RenderTextureReadWrite.Linear);
-		_hTex = new RenderTexture(N, N, 0, RenderTextureFormat.RGFloat, RenderTextureReadWrite.Linear);
-		_nTex = new RenderTexture(N, N, 0, RenderTextureFormat.ARGBFloat, RenderTextureReadWrite.Linear);
+		_h0Tex = new RenderTexture(N, N, 0, RenderTextureFormat.ARGBFloat);
+		_wTex = new RenderTexture(N, N, 0, RenderTextureFormat.ARGBFloat);
+		_hTex = new RenderTexture(N, N, 0, RenderTextureFormat.RGFloat);
+		_nTex = new RenderTexture(N, N, 0, RenderTextureFormat.ARGBFloat);
 		_h0Tex.filterMode = _wTex.filterMode = _hTex.filterMode = _nTex.filterMode = FilterMode.Bilinear;
 		_h0Tex.wrapMode = _wTex.wrapMode = _hTex.wrapMode = _nTex.wrapMode = TextureWrapMode.Repeat;
 		_h0Tex.enableRandomWrite = _wTex.enableRandomWrite = _hTex.enableRandomWrite = _nTex.enableRandomWrite = true;
@@ -134,7 +134,7 @@ public class Ocean : MonoBehaviour {
 		_nTex.DiscardContents();
 		ocean.Dispatch(OceanConst.KERNEL_UPDATE_N, _nGroups, _nGroups, 1);
 
-		var mat = renderer.sharedMaterial;
+		var mat = GetComponent<Renderer>().sharedMaterial;
 		if (mat.HasProperty(SHADER_HEIGHT_MAP))
 			mat.SetTexture(SHADER_HEIGHT_MAP, heightTex);
 		if (mat.HasProperty(SHADER_NORMAL_MAP))

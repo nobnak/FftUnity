@@ -9,8 +9,9 @@
 	}
 	SubShader {
 		Tags { "RenderType"="Transparent" "Queue"="Transparent" }
-		LOD 200 ZWrite On ZTest LEqual
+		LOD 200 ZWrite Off ZTest LEqual
 		Blend One OneMinusSrcAlpha
+		ColorMask RGB
 		
 		CGPROGRAM
 		#pragma target 5.0
@@ -56,12 +57,12 @@
 			float f = Fresnel(r, IN.worldNormal);			
 			float4 cRefl = _ICube * texCUBE(_Cube, r);
 			
-			float sceneZ = DECODE_EYEDEPTH(tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(IN.screenPos)).r);
+			float sceneZ = LinearEyeDepth(tex2Dproj(_CameraDepthTexture, IN.screenPos).r);
 			float oceanZ = IN.screenPos.z;
 			float dist = max(0.0, sceneZ - oceanZ);
 			float absorb = saturate(1.0 - exp(-_Absorb * dist));
 			
-			o.Emission = f * cRefl.rgb + (1.0 - f) * absorb * _SeaColor.rgb;
+			o.Emission = lerp(absorb * _SeaColor.rgb, cRefl.rgb, f);
 			o.Alpha = absorb;
 		}
 		ENDCG

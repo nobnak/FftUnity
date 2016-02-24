@@ -2,14 +2,16 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 3
+  serializedVersion: 6
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Ocean
   m_Shader: {fileID: 4800000, guid: 2ba0c029884931142a5d8faf913038b1, type: 3}
-  m_ShaderKeywords: []
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
   m_CustomRenderQueue: -1
+  stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -42,17 +44,17 @@ Material:
       data:
         first:
           name: _F0
-        second: .0199999996
+        second: 0.02
       data:
         first:
           name: _Absorb
-        second: .300000012
+        second: 0.3
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: .56078434, g: .56078434, b: .56078434, a: 1}
+        second: {r: 0.56078434, g: 0.56078434, b: 0.56078434, a: 1}
       data:
         first:
           name: _SeaColor
-        second: {r: .0875970796, g: .170426503, b: .250980407, a: 1}
+        second: {r: 0.08759708, g: 0.1704265, b: 0.2509804, a: 1}

@@ -47,6 +47,6 @@ public class TestBuf2Tex : MonoBehaviour {
 		_cloneTex.enableRandomWrite = true;
 		_cloneTex.Create();
 		
-		renderer.sharedMaterial.mainTexture = _cloneTex;
+		GetComponent<Renderer>().sharedMaterial.mainTexture = _cloneTex;
 	}
 }

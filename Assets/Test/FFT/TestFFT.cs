@@ -15,6 +15,6 @@ public class TestFFT : MonoBehaviour {
 		_fft = new FFT(fft);
 	}
 	void Update() {
-		renderer.sharedMaterial.mainTexture = _fft.Forward(photo);
+		GetComponent<Renderer>().sharedMaterial.mainTexture = _fft.Forward(photo);
 	}
 }
