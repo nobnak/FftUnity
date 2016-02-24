@@ -10,6 +10,7 @@ public class Ocean : MonoBehaviour {
 	public const string SHADER_WORLD_VIEW = "_WorldViewPos";
 	public const string SHADER_H0_MAP = "_H0Tex";
 	public const string SHADER_W_MAP = "_WTex";
+	public const string SHADER_HEIGHT = "_Height";
 
 	public ComputeShader fft;
 	public ComputeShader ocean;
@@ -34,6 +35,8 @@ public class Ocean : MonoBehaviour {
 	private RenderTexture _nTex;
 
 	private Rect _guiWindow;
+	private Renderer _renderer;
+	private MaterialPropertyBlock _block;
 
 	void OnDestroy() {
 		_fft.Dispose();
@@ -99,6 +102,10 @@ public class Ocean : MonoBehaviour {
 		ocean.SetTexture(OceanConst.KERNEL_BUF2TEX, OceanConst.SHADER_COPY_TEX_OUT, _wTex);
 		_wTex.DiscardContents();
 		ocean.Dispatch(OceanConst.KERNEL_BUF2TEX, _nGroups, _nGroups, 1);
+
+		_renderer = GetComponent<Renderer> ();
+		_block = new MaterialPropertyBlock ();
+		_renderer.GetPropertyBlock (_block);
 	}
 
 	void OnGUI() {
@@ -134,19 +141,14 @@ public class Ocean : MonoBehaviour {
 		_nTex.DiscardContents();
 		ocean.Dispatch(OceanConst.KERNEL_UPDATE_N, _nGroups, _nGroups, 1);
 
-		var mat = GetComponent<Renderer>().sharedMaterial;
-		if (mat.HasProperty(SHADER_HEIGHT_MAP))
-			mat.SetTexture(SHADER_HEIGHT_MAP, heightTex);
-		if (mat.HasProperty(SHADER_NORMAL_MAP))
-			mat.SetTexture(SHADER_NORMAL_MAP, _nTex);
-		if (mat.HasProperty(SHADER_WORLD_VIEW)) {
-			var viewPos = (Vector4)view.position;
-			viewPos.w = 1f;
-			mat.SetVector(SHADER_WORLD_VIEW, viewPos);
-		}
-		if (mat.HasProperty(SHADER_H0_MAP))
-			mat.SetTexture(SHADER_H0_MAP, _h0Tex);
-		if (mat.HasProperty(SHADER_W_MAP))
-			mat.SetTexture(SHADER_W_MAP, _wTex);
+		_block.SetTexture(SHADER_HEIGHT_MAP, heightTex);
+		_block.SetTexture(SHADER_NORMAL_MAP, _nTex);
+		var viewPos = (Vector4)view.position;
+		viewPos.w = 1f;
+		_block.SetVector(SHADER_WORLD_VIEW, viewPos);
+		_block.SetTexture(SHADER_H0_MAP, _h0Tex);
+		_block.SetTexture(SHADER_W_MAP, _wTex);
+		_block.SetFloat (SHADER_HEIGHT, height);
+		_renderer.SetPropertyBlock (_block);
 	}
 }

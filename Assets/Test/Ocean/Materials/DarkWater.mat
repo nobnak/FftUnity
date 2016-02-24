@@ -2,14 +2,16 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 3
+  serializedVersion: 6
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: DarkWater
   m_Shader: {fileID: 4800000, guid: 5ced4b50eed10b346b0094f8145210b7, type: 3}
-  m_ShaderKeywords: []
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
   m_CustomRenderQueue: -1
+  stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -29,13 +31,6 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _SkyCube
-        second:
-          m_Texture: {fileID: 8900000, guid: 22d4cca990ebbed40ac422c04c2feac5, type: 2}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
           name: _Cube
         second:
           m_Texture: {fileID: 8900000, guid: 9e1bfb9ee2ab9b746af7edd0122e9ef8, type: 2}
@@ -48,6 +43,13 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _SkyCube
+        second:
+          m_Texture: {fileID: 8900000, guid: 22d4cca990ebbed40ac422c04c2feac5, type: 2}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -55,45 +57,45 @@ Material:
         second: 1
       data:
         first:
+          name: _ICube
+        second: 1
+      data:
+        first:
+          name: _F0
+        second: 0.02
+      data:
+        first:
+          name: _Parallax
+        second: 0.2
+      data:
+        first:
           name: _LightRough
-        second: 139.440002
+        second: 139.44
       data:
         first:
           name: _LightPower
         second: 18
       data:
         first:
-          name: _F0
-        second: .0199999996
-      data:
-        first:
           name: _SkyPower
-        second: .800000012
-      data:
-        first:
-          name: _Parallax
-        second: .200000003
-      data:
-        first:
-          name: _ICube
-        second: 1
+        second: 0.8
       data:
         first:
           name: _Gloss
-        second: 5.11000013
+        second: 5.11
       data:
         first:
           name: _Fresnel0
-        second: .0199999996
+        second: 0.02
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: .552941203, g: .552941203, b: .552941203, a: 1}
+        second: {r: 0.5529412, g: 0.5529412, b: 0.5529412, a: 1}
       data:
         first:
           name: _SpecColor
-        second: {r: .53725493, g: .53725493, b: .53725493, a: 1}
+        second: {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 1}
       data:
         first:
           name: _SeaColor
@@ -101,20 +103,20 @@ Material:
       data:
         first:
           name: _WorldViewPos
-        second: {r: 0, g: 5.0007205, b: -15.0028706, a: 1}
+        second: {r: 0, g: 2.81, b: -43.2, a: 1}
       data:
         first:
           name: _ViewDir
-        second: {r: -0, g: .707106888, b: .70710665, a: 0}
+        second: {r: -0, g: 0.7071069, b: 0.70710665, a: 0}
       data:
         first:
           name: _View
-        second: {r: 0, g: -1.00000036, b: -1.00000024, a: 1}
+        second: {r: 0, g: -1.0000004, b: -1.0000002, a: 1}
       data:
         first:
           name: _LocalView
-        second: {r: 0, g: -1.00000036, b: -1.00000024, a: 1}
+        second: {r: 0, g: -1.0000004, b: -1.0000002, a: 1}
       data:
         first:
           name: _WorldView
-        second: {r: 0, g: 10.0000019, b: -10, a: 1}
+        second: {r: 0, g: 10.000002, b: -10, a: 1}

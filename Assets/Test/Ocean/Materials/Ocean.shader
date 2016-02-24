@@ -1,11 +1,15 @@
 ﻿Shader "Custom/Ocean" {
 	Properties {
+		_HeightMap ("Height Map", 2D) = "black" {}
+		_Height ("Height", Float) = 1
 		_BumpMap ("Normal Map", 2D) = "white" {}
 		_Cube ("Sky", Cube) = "black" {}
 		_ICube ("Sky Intensity", Float) = 1.0
 		_F0 ("Fresnel 0", Float) = 0.02
 		_Absorb ("Translucency", Float) = 1.0
 		_SeaColor ("Sea Color", Color) = (0, 0.467, 0.745, 1)
+
+		_Tess ("Tessellation Factor", Range(1,32)) = 4
 	}
 	SubShader {
 		Tags { "RenderType"="Transparent" "Queue"="Transparent" }
@@ -15,16 +19,29 @@
 		
 		CGPROGRAM
 		#pragma target 5.0
-		#pragma surface surf Lambert vertex:vert
+		#pragma surface surf Lambert addshadow fullforwardshadows vertex:vert tessellate:tess
 
 		sampler2D _CameraDepthTexture;
 
+		sampler2D _HeightMap;
+		float _Height;
 		sampler2D _BumpMap;
 		samplerCUBE _Cube;
 		float _ICube;
 		float _F0;
 		float _Absorb;
 		float4 _SeaColor;
+
+		float _Tess;
+
+		struct appdata {
+			float4 vertex : POSITION;
+			float4 tangent : TANGENT;
+			float3 normal : NORMAL;
+			float4 texcoord : TEXCOORD0;
+			float4 texcoord1 : TEXCOORD1;
+			float4 texcoord2 : TEXCOORD2;
+		};
 
 		struct Input {
 			float2 uv_BumpMap;
@@ -38,17 +55,20 @@
 			float c = 1.0 - saturate(dot(v, n));
 			return _F0 + (1.0 - _F0) * c * c * c * c * c;
 		}
+
+		float4 tess() {
+			return _Tess;
+		}
 		
-		void vert(inout appdata_full v, out Input o) {
-			UNITY_INITIALIZE_OUTPUT(Input, o);
-			float4 projPos = mul(UNITY_MATRIX_MVP, v.vertex);
-			o.screenPos = ComputeScreenPos(projPos);
-			COMPUTE_EYEDEPTH(o.screenPos.z);
+		void vert(inout appdata v) {
+			float h = tex2Dlod(_HeightMap, float4(v.texcoord.xy, 0, 0));
+			v.vertex.xyz += _Height * h * v.normal;
 		}
 		
 		void surf (Input IN, inout SurfaceOutput o) {
+			float h = tex2D(_HeightMap, IN.uv_BumpMap).x;
+
 			float3 n = tex2D(_BumpMap, IN.uv_BumpMap).xyz;
-			
 			o.Normal = n;
 			IN.worldRefl = WorldReflectionVector(IN, o.Normal);
 			IN.worldNormal = WorldNormalVector(IN, o.Normal);
@@ -67,5 +87,5 @@
 		}
 		ENDCG
 	} 
-	FallBack "Diffuse"
+	FallBack Off
 }
