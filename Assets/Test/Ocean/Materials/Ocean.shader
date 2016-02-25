@@ -1,5 +1,6 @@
 ﻿Shader "Custom/Ocean" {
 	Properties {
+        _MainTex ("Main Texture", 2D) = "white" {}
 		_HeightMap ("Height Map", 2D) = "black" {}
 		_Height ("Height", Float) = 1
 		_BumpMap ("Normal Map", 2D) = "white" {}
@@ -23,6 +24,7 @@
 
 		sampler2D _CameraDepthTexture;
 
+        sampler2D _MainTex;
 		sampler2D _HeightMap;
 		float _Height;
 		sampler2D _BumpMap;
@@ -44,6 +46,7 @@
 		};
 
 		struct Input {
+            float2 uv_MainTex;
 			float2 uv_BumpMap;
 			float3 worldRefl;
 			float3 worldNormal;
@@ -66,7 +69,10 @@
 		}
 		
 		void surf (Input IN, inout SurfaceOutput o) {
-			float h = tex2D(_HeightMap, IN.uv_BumpMap).x;
+			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+            o.Emission = c.rgb;
+            o.Alpha = c.a;
+            return;
 
 			float3 n = tex2D(_BumpMap, IN.uv_BumpMap).xyz;
 			o.Normal = n;
