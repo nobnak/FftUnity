@@ -46,6 +46,14 @@ Material:
     m_Floats:
       data:
         first:
+          name: _Glossiness
+        second: 0.5
+      data:
+        first:
+          name: _Metallic
+        second: 0
+      data:
+        first:
           name: _ICube
         second: 1
       data:
@@ -56,14 +64,6 @@ Material:
         first:
           name: _Absorb
         second: 0.2
-      data:
-        first:
-          name: _Glossiness
-        second: 0.5
-      data:
-        first:
-          name: _Metallic
-        second: 0
       data:
         first:
           name: _Height
