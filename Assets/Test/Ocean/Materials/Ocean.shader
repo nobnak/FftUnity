@@ -27,6 +27,7 @@
 
         sampler2D _MainTex;
 		sampler2D _HeightMap;
+        float4 _HeightMap_ST;
 		float _Height;
 		sampler2D _BumpMap;
 		samplerCUBE _Cube;
@@ -66,19 +67,13 @@
 		}
 		
 		void vert(inout appdata v) {
-            float2 uv = v.texcoord.xy;
+            float2 uv = TRANSFORM_TEX(v.texcoord.xy, _HeightMap);
 			float h = tex2Dlod(_HeightMap, float4(uv, 0, 0));
 			v.vertex.xyz += _Height * h * v.normal;
             v.vertex.y += dot(uv, _Incline.xy);
 		}
 		
 		void surf (Input IN, inout SurfaceOutput o) {
-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
-            o.Emission = c.rgb;
-            //o.Emission = float3(frac(IN.uv_MainTex), 0);
-            o.Alpha = c.a;
-            return;
-
 			float3 n = tex2D(_BumpMap, IN.uv_BumpMap).xyz;
 			o.Normal = n;
 			IN.worldRefl = WorldReflectionVector(IN, o.Normal);
