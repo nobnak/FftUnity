@@ -9,6 +9,7 @@
 		_F0 ("Fresnel 0", Float) = 0.02
 		_Absorb ("Translucency", Float) = 1.0
 		_SeaColor ("Sea Color", Color) = (0, 0.467, 0.745, 1)
+        _Incline ("Incline", Vector) = (0,0,0,0)
 
 		_Tess ("Tessellation Factor", Range(1,32)) = 4
 	}
@@ -33,6 +34,7 @@
 		float _F0;
 		float _Absorb;
 		float4 _SeaColor;
+        float4 _Incline;
 
 		float _Tess;
 
@@ -64,13 +66,16 @@
 		}
 		
 		void vert(inout appdata v) {
-			float h = tex2Dlod(_HeightMap, float4(v.texcoord.xy, 0, 0));
+            float2 uv = v.texcoord.xy;
+			float h = tex2Dlod(_HeightMap, float4(uv, 0, 0));
 			v.vertex.xyz += _Height * h * v.normal;
+            v.vertex.y += dot(uv, _Incline.xy);
 		}
 		
 		void surf (Input IN, inout SurfaceOutput o) {
 			float4 c = tex2D(_MainTex, IN.uv_MainTex);
             o.Emission = c.rgb;
+            //o.Emission = float3(frac(IN.uv_MainTex), 0);
             o.Alpha = c.a;
             return;
 

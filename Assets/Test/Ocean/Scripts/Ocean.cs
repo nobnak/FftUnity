@@ -19,6 +19,7 @@ public class Ocean : MonoBehaviour {
 	public int N = 64;
 	public Vector2 windVelocity = new Vector2(5f, 0f);
 	public float height = 1f;
+    public float timeScale = 1f;
 	public Transform view;
 
 	int _nGroups;
@@ -124,7 +125,7 @@ public class Ocean : MonoBehaviour {
 	}
 
 	void Update() {
-		ocean.SetFloat(OceanConst.SHADER_TIME, _time += Time.deltaTime);
+        ocean.SetFloat(OceanConst.SHADER_TIME, _time += Time.deltaTime * timeScale);
 		ocean.SetTexture(OceanConst.KERNEL_UPDATE_H, OceanConst.SHADER_H0_TEX, _h0Tex);
 		ocean.SetTexture(OceanConst.KERNEL_UPDATE_H, OceanConst.SHADER_W_TEX, _wTex);
 		ocean.SetTexture(OceanConst.KERNEL_UPDATE_H, OceanConst.SHADER_H_TEX, _hTex);

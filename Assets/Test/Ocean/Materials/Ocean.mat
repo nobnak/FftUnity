@@ -20,14 +20,14 @@ Material:
           name: _MainTex
         second:
           m_Texture: {fileID: 2800000, guid: c9d840a95a87c1d40950f260673ddcb5, type: 3}
-          m_Scale: {x: 10, y: 10}
+          m_Scale: {x: 2, y: 10}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMap
         second:
           m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
+          m_Scale: {x: 0.2, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -41,7 +41,7 @@ Material:
           name: _HeightMap
         second:
           m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
+          m_Scale: {x: 0.2, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
@@ -81,3 +81,7 @@ Material:
         first:
           name: _SeaColor
         second: {r: 0.08759708, g: 0.1704265, b: 0.2509804, a: 1}
+      data:
+        first:
+          name: _Incline
+        second: {r: 0, g: 5, b: 0, a: 0}
