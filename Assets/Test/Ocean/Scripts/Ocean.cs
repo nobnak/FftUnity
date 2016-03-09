@@ -21,22 +21,22 @@ public class Ocean : MonoBehaviour {
 	public float height = 1f;
 	public Transform view;
 
-	private int _nGroups;
-	private FFT _fft;
-	private H0 _h0;
-	private W _w;
-	private float _time = 0f;
+	int _nGroups;
+	FFT _fft;
+	H0 _h0;
+	W _w;
+	float _time = 0f;
 
-	private ComputeBuffer _h0Buf;
-	private ComputeBuffer _wBuf;
-	private RenderTexture _h0Tex;
-	private RenderTexture _wTex;
-	private RenderTexture _hTex;
-	private RenderTexture _nTex;
+	ComputeBuffer _h0Buf;
+	ComputeBuffer _wBuf;
+	RenderTexture _h0Tex;
+	RenderTexture _wTex;
+	RenderTexture _hTex;
+	RenderTexture _nTex;
 
-	private Rect _guiWindow;
-	private Renderer _renderer;
-	private MaterialPropertyBlock _block;
+	Rect _guiWindow;
+	Renderer _renderer;
+	MaterialPropertyBlock _block;
 
 	void OnDestroy() {
 		_fft.Dispose();
