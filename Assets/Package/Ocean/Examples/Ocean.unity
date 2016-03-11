@@ -102,13 +102,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fft: {fileID: 7200000, guid: e91c86f0ed60a324183f2e4adc2a387f, type: 3}
   ocean: {fileID: 7200000, guid: bd38f9d4f90cd324a9fe784a40462e6f, type: 3}
-  oceanSize: 100
+  oceanSize: 200
   N: 512
-  windVelocity: {x: 3, y: 0}
-  height: 1
-  timeScale: 0.2
+  windVelocity: {x: 0, y: 10}
+  height: 0.5
+  timeScale: 0.5
   randomSeed: 100
   view: {fileID: 1694655101}
+  targetCam: {fileID: 1694655100}
 --- !u!1 &1694655095
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +213,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400020, guid: d7078cfde603d194eb83fd2c9cb16030, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -11.48
       objectReference: {fileID: 0}
     - target: {fileID: 400020, guid: d7078cfde603d194eb83fd2c9cb16030, type: 3}
       propertyPath: m_LocalRotation.x

@@ -239,7 +239,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 173702}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -11.48}
   m_LocalScale: {x: 50, y: 1, z: 50}
   m_Children:
   - {fileID: 458780}
@@ -636,11 +636,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fft: {fileID: 7200000, guid: e91c86f0ed60a324183f2e4adc2a387f, type: 3}
   ocean: {fileID: 7200000, guid: bd38f9d4f90cd324a9fe784a40462e6f, type: 3}
-  oceanSize: 100
+  oceanSize: 200
   N: 512
-  windVelocity: {x: 3, y: 0}
-  height: 1
-  timeScale: 0.2
+  windVelocity: {x: 0, y: 10}
+  height: 0.5
+  timeScale: 0.5
   randomSeed: 100
   view: {fileID: 0}
   targetCam: {fileID: 0}

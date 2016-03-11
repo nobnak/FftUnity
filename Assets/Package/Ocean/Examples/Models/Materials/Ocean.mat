@@ -7,10 +7,10 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Ocean
-  m_Shader: {fileID: 4800000, guid: 46854dd5085d7df40857152abe784612, type: 3}
+  m_Shader: {fileID: 4800000, guid: 259723080953d8a48870ea73f84c6778, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: 2450
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
@@ -138,6 +138,14 @@ Material:
         first:
           name: _Height
         second: 1
+      data:
+        first:
+          name: _Tess
+        second: 1
+      data:
+        first:
+          name: _Phong
+        second: 0.5
     m_Colors:
       data:
         first:
@@ -150,4 +158,4 @@ Material:
       data:
         first:
           name: _Incline
-        second: {r: 0, g: 5, b: 0, a: 0}
+        second: {r: 0, g: 20, b: 0, a: 0}
