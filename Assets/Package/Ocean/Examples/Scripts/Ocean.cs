@@ -23,6 +23,7 @@ namespace OceanSystem {
         public float timeScale = 1f;
         public int randomSeed = 100;
     	public Transform view;
+        public Camera targetCam;
 
     	int _nGroups;
     	FFT _fft;
@@ -38,7 +39,7 @@ namespace OceanSystem {
     	RenderTexture _nTex;
 
     	Rect _guiWindow;
-    	Renderer _renderer;
+    	Renderer[] _renderers;
     	MaterialPropertyBlock _block;
 
     	void OnDestroy() {
@@ -54,7 +55,9 @@ namespace OceanSystem {
     	}
     	void Start () {
             Random.seed = randomSeed;
-    		Camera.main.depthTextureMode |= DepthTextureMode.Depth;
+            targetCam.depthTextureMode |= DepthTextureMode.Depth;
+            if (view == null)
+                view = targetCam.transform;
     		var winSize = new Vector2(300f, 100f);
     		_guiWindow = new Rect(Screen.width - winSize.x, Screen.height - winSize.y, winSize.x, winSize.y);
 
@@ -107,9 +110,8 @@ namespace OceanSystem {
     		_wTex.DiscardContents();
     		ocean.Dispatch(OceanConst.KERNEL_BUF2TEX, _nGroups, _nGroups, 1);
 
-    		_renderer = GetComponent<Renderer> ();
+    		_renderers = GetComponentsInChildren<Renderer> ();
     		_block = new MaterialPropertyBlock ();
-    		_renderer.GetPropertyBlock (_block);
     	}
 
     	void OnGUI() {
@@ -153,7 +155,8 @@ namespace OceanSystem {
     		_block.SetTexture(SHADER_H0_MAP, _h0Tex);
     		_block.SetTexture(SHADER_W_MAP, _wTex);
     		_block.SetFloat (SHADER_HEIGHT, height);
-    		_renderer.SetPropertyBlock (_block);
+            for (var i = 0; i < _renderers.Length; i++)
+                _renderers[i].SetPropertyBlock (_block);
     	}
     }
 }

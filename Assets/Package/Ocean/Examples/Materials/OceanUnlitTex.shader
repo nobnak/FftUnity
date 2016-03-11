@@ -21,6 +21,7 @@ Shader "Custom/OceanUnlitTex" {
             float4 _MainTex_ST;
             float4 _MainTex_TexelSize;
     		sampler2D _HeightMap;
+            float4 _HeightMap_ST;
     		float _Height;
             float4 _Incline;
 
@@ -38,18 +39,17 @@ Shader "Custom/OceanUnlitTex" {
     		};
     		
     		v2f vert(appdata v) {
-                v2f o;
-                float2 uv = TRANSFORM_TEX(v.texcoord.xy, _MainTex);
-                float2 uvBottom = uv;
+                float2 uvBottom = v.texcoord.xy;
                 if (_MainTex_TexelSize.y < 0)
                     uvBottom.y = 1 - uvBottom.y;
 
-    			float h = tex2Dlod(_HeightMap, float4(uvBottom, 0, 0));
+    			float h = tex2Dlod(_HeightMap, float4(TRANSFORM_TEX(uvBottom, _HeightMap), 0, 0));
     			v.vertex.xyz += _Height * h * v.normal;
-                v.vertex.y += dot(uv, _Incline.xy);
+                v.vertex.y += dot(uvBottom, _Incline.xy);
 
+                v2f o;
                 o.vertex = mul(UNITY_MATRIX_MVP, float4(v.vertex.xyz, 1));
-                o.uv = uv;
+                o.uv = TRANSFORM_TEX(v.texcoord.xy, _MainTex);
                 o.uvBottom = uvBottom;
                 return o;
     		}
