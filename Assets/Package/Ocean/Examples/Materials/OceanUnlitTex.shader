@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "Custom/OceanUnlitTex" {
 	Properties {
         _MainTex ("Main Texture", 2D) = "white" {}
@@ -48,7 +50,7 @@ Shader "Custom/OceanUnlitTex" {
                 v.vertex.y += dot(uvBottom, _Incline.xy);
 
                 v2f o;
-                o.vertex = mul(UNITY_MATRIX_MVP, float4(v.vertex.xyz, 1));
+                o.vertex = UnityObjectToClipPos(float4(v.vertex.xyz, 1));
                 o.uv = TRANSFORM_TEX(v.texcoord.xy, _MainTex);
                 o.uvBottom = uvBottom;
                 return o;

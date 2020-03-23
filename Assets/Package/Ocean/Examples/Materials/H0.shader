@@ -1,4 +1,6 @@
-﻿Shader "Custom/H0" {
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/H0" {
 	Properties {
 		_Height ("Height Power", Float) = 1
 		_H0Tex ("Height Map", 2D) = "black" {}
@@ -23,7 +25,7 @@
 			
 			Input vert(Input IN) {
 				Input OUT;
-				OUT.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
+				OUT.vertex = UnityObjectToClipPos(IN.vertex);
 				OUT.uv = IN.uv;
 				return OUT;
 			}

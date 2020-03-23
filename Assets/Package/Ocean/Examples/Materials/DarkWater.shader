@@ -1,4 +1,8 @@
-﻿#warning Upgrade NOTE: unity_Scale shader variable was removed; replaced 'unity_Scale.w' with '1.0'
+﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+#warning Upgrade NOTE: unity_Scale shader variable was removed; replaced 'unity_Scale.w' with '1.0'
 
 Shader "Custom/DakrWater" {
 	Properties {
@@ -63,7 +67,7 @@ Shader "Custom/DakrWater" {
 		}
 		
 		inline float3 Custom_ObjSpaceViewDir( in float4 v ) {
-			float3 objSpaceCameraPos = mul(_World2Object, float4(_WorldViewPos.xyz, 1)).xyz * 1.0;
+			float3 objSpaceCameraPos = mul(unity_WorldToObject, float4(_WorldViewPos.xyz, 1)).xyz * 1.0;
 			return objSpaceCameraPos - v.xyz;
 		}
 		
@@ -72,13 +76,13 @@ Shader "Custom/DakrWater" {
 			//UNITY_INITIALIZE_OUTPUT(Input, OUT);
 			Input OUT;
 			
-			OUT.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+			OUT.vertex = UnityObjectToClipPos(v.vertex);
 			float3 viewDir = Custom_ObjSpaceViewDir(v.vertex);
 			OUT.viewDirForLight = mul (rotation, viewDir);
-			float3 worldViewDir = mul ((float3x3)_Object2World, -viewDir);
-			OUT._TtoW0 = float4(mul(rotation, _Object2World[0].xyz), worldViewDir.x)*1.0;
-			OUT._TtoW1 = float4(mul(rotation, _Object2World[1].xyz), worldViewDir.y)*1.0;
-			OUT._TtoW2 = float4(mul(rotation, _Object2World[2].xyz), worldViewDir.z)*1.0;
+			float3 worldViewDir = mul ((float3x3)unity_ObjectToWorld, -viewDir);
+			OUT._TtoW0 = float4(mul(rotation, unity_ObjectToWorld[0].xyz), worldViewDir.x)*1.0;
+			OUT._TtoW1 = float4(mul(rotation, unity_ObjectToWorld[1].xyz), worldViewDir.y)*1.0;
+			OUT._TtoW2 = float4(mul(rotation, unity_ObjectToWorld[2].xyz), worldViewDir.z)*1.0;
 			OUT.lightDir = mul (rotation, ObjSpaceLightDir(v.vertex));
 			OUT.uv_BumpMap = v.texcoord;
 			TRANSFER_VERTEX_TO_FRAGMENT(OUT);

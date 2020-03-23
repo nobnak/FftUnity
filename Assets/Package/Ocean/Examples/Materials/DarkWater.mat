@@ -4,119 +4,57 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: DarkWater
   m_Shader: {fileID: 4800000, guid: 5ced4b50eed10b346b0094f8145210b7, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
+  disabledShaderPasses: []
   m_SavedProperties:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TexEnvs:
-      data:
-        first:
-          name: _MainTex
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _BumpMap
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Cube
-        second:
-          m_Texture: {fileID: 8900000, guid: 9e1bfb9ee2ab9b746af7edd0122e9ef8, type: 2}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _HeightMap
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _SkyCube
-        second:
-          m_Texture: {fileID: 8900000, guid: 22d4cca990ebbed40ac422c04c2feac5, type: 2}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Cube:
+        m_Texture: {fileID: 8900000, guid: 9e1bfb9ee2ab9b746af7edd0122e9ef8, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HeightMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SkyCube:
+        m_Texture: {fileID: 8900000, guid: 22d4cca990ebbed40ac422c04c2feac5, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-      data:
-        first:
-          name: _Shininess
-        second: 1
-      data:
-        first:
-          name: _ICube
-        second: 1
-      data:
-        first:
-          name: _F0
-        second: 0.02
-      data:
-        first:
-          name: _Parallax
-        second: 0.2
-      data:
-        first:
-          name: _LightRough
-        second: 139.44
-      data:
-        first:
-          name: _LightPower
-        second: 18
-      data:
-        first:
-          name: _SkyPower
-        second: 0.8
-      data:
-        first:
-          name: _Gloss
-        second: 5.11
-      data:
-        first:
-          name: _Fresnel0
-        second: 0.02
+    - _F0: 0.02
+    - _Fresnel0: 0.02
+    - _Gloss: 5.11
+    - _ICube: 1
+    - _LightPower: 27.73
+    - _LightRough: 7.1
+    - _Parallax: 0.2
+    - _Shininess: 1
+    - _SkyPower: -0.2
     m_Colors:
-      data:
-        first:
-          name: _Color
-        second: {r: 0.5529412, g: 0.5529412, b: 0.5529412, a: 1}
-      data:
-        first:
-          name: _SpecColor
-        second: {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 1}
-      data:
-        first:
-          name: _SeaColor
-        second: {r: 0, g: 0, b: 0, a: 1}
-      data:
-        first:
-          name: _WorldViewPos
-        second: {r: 0, g: 2.81, b: -43.2, a: 1}
-      data:
-        first:
-          name: _ViewDir
-        second: {r: -0, g: 0.7071069, b: 0.70710665, a: 0}
-      data:
-        first:
-          name: _View
-        second: {r: 0, g: -1.0000004, b: -1.0000002, a: 1}
-      data:
-        first:
-          name: _LocalView
-        second: {r: 0, g: -1.0000004, b: -1.0000002, a: 1}
-      data:
-        first:
-          name: _WorldView
-        second: {r: 0, g: 10.000002, b: -10, a: 1}
+    - _Color: {r: 0.5529412, g: 0.5529412, b: 0.5529412, a: 1}
+    - _LocalView: {r: 0, g: -1.0000004, b: -1.0000002, a: 1}
+    - _SeaColor: {r: 0.040546417, g: 0, b: 1, a: 1}
+    - _SpecColor: {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 1}
+    - _View: {r: 0, g: -1.0000004, b: -1.0000002, a: 1}
+    - _ViewDir: {r: -0, g: 0.7071069, b: 0.70710665, a: 0}
+    - _WorldView: {r: 0, g: 10.000002, b: -10, a: 1}
+    - _WorldViewPos: {r: 0, g: 2.81, b: -43.2, a: 1}
